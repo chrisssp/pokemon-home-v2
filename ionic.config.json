@@ -1,0 +1,7 @@
+{
+  "name": "shd_pokemon_app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

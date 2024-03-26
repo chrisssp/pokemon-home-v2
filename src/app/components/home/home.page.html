@@ -1,0 +1,205 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-item lines="none">
+      <ion-label>Bienvenido, 20223l001079</ion-label>
+      <ion-avatar slot="end">
+        <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+      </ion-avatar>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <ion-searchbar mode="ios" placeholder="Buscar por nombre" (ionChange)="onSearchChange($event)"></ion-searchbar>
+
+  <ion-item class="transparent">
+    <ion-label>Haz clic sobre el pokémon del que deseas consultar información.</ion-label>
+  </ion-item>
+
+  <ion-grid>
+    <ion-row>
+      <!-- Bucle para mostrar los Pokémones -->
+      <ion-col size="6" size-md="4" size-lg="2" *ngFor="let pokemon of pokemonList">
+        <!-- Inicio del bloque -->
+        <ion-card id="open-modal-{{ pokemon.name }}">
+          <ion-card-header>
+            <ion-label class="ion-text-center" color="primary"><b>{{ pokemon.name.toUpperCase() }}</b></ion-label>
+          </ion-card-header>
+          <img class="ion-text-center" [src]="pokemon.image" />
+          <ion-card-content>
+            <ion-text class="ion-text-center">
+              <p>
+                <span *ngFor="let type of pokemon.types; let isLast = last">
+                  {{ type | titlecase }}
+                  <ng-container *ngIf="!isLast"> / </ng-container>
+                </span>
+              </p>
+            </ion-text>
+          </ion-card-content>
+        </ion-card>
+        <!-- Fin del bloque -->
+      </ion-col>
+      <!-- Fin del bucle -->
+    </ion-row>
+  </ion-grid>
+
+  <!-- Bucle para mostrar los Pokémones -->
+  <ng-container *ngFor="let pokemon of pokemonList">
+    <!-- Modal del Pokémon actual -->
+    <ion-modal [initialBreakpoint]="1" [breakpoints]="[0, 1]" [trigger]="'open-modal-' + pokemon.name">
+      <ng-template>
+        <div class="block">
+          <ion-content class="ion-padding">
+
+            <!-- Imagen, nombre y tipo(s) -->
+            <ion-card>
+              <ion-card-header>
+                <ion-label class="ion-text-center" color="primary"><b>{{ pokemon.name.toUpperCase() }}</b></ion-label>
+              </ion-card-header>
+              <img [src]="pokemon.image" />
+            </ion-card>
+
+            <!-- Puntos de base -->
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title class="ion-text-center"><b>Puntos de base</b></ion-card-title>
+              </ion-card-header>
+            </ion-card>
+            <ion-card class="ion-no-border">
+              <ion-card-content>
+                <ion-text class="ion-text-center">
+                  <p>Puntos de vida</p>
+                </ion-text>
+                <ion-progress-bar [value]="pokemon.hp / 100" class="ion-margin-bottom" color="secondary"></ion-progress-bar>
+                <ion-text class="ion-text-center">
+                  <p>Ataque</p>
+                </ion-text>
+                <ion-progress-bar [value]="pokemon.attack / 100" class="ion-margin-bottom"
+                  color="secondary"></ion-progress-bar>
+                <ion-text class="ion-text-center">
+                  <p>Defensa</p>
+                </ion-text>
+                <ion-progress-bar [value]="pokemon.defense / 100" class="ion-margin-bottom"
+                  color="secondary"></ion-progress-bar>
+                <ion-text class="ion-text-center">
+                  <p>Ataque especial</p>
+                </ion-text>
+                <ion-progress-bar [value]="pokemon.specialAttack / 100" class="ion-margin-bottom"
+                  color="secondary"></ion-progress-bar>
+                <ion-text class="ion-text-center">
+                  <p>Defensa especial</p>
+                </ion-text>
+                <ion-progress-bar [value]="pokemon.specialDefense / 100" class="ion-margin-bottom"
+                  color="secondary"></ion-progress-bar>
+                <ion-text class="ion-text-center">
+                  <p>Velocidad</p>
+                </ion-text>
+                <ion-progress-bar [value]="pokemon.speed / 100" class="ion-margin-bottom"
+                  color="secondary"></ion-progress-bar>
+              </ion-card-content>
+            </ion-card>            
+
+            <!-- Atributos -->
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title class="ion-text-center"><b>Atributos</b></ion-card-title>
+              </ion-card-header>
+            </ion-card>
+            <div class="row">
+              <!-- Atributos y valores -->
+              <div class="column">
+                <ion-card class="ion-no-padding ion-no-border">
+                  <ion-list [inset]="true">
+                    <!-- Primer atributo y valor -->
+                    <ion-item>
+                      <ion-label class="ion-text-center" color="primary"><b>Tipo:</b></ion-label>
+                      <ion-label class="ion-text-center">
+                        <span *ngFor="let type of pokemon.types; let isLast = last">{{ type | titlecase }}<ng-container
+                            *ngIf="!isLast"> / </ng-container></span>
+                      </ion-label>
+                    </ion-item>
+                    <!-- Segundo atributo y valor -->
+                    <ion-item>
+                      <ion-label class="ion-text-center" color="primary"><b>Habilidades:</b></ion-label>
+                      <ion-label class="ion-text-center">{{ pokemon.abilities.join(', ') | titlecase }}</ion-label>
+                    </ion-item>
+                    <!-- Tercer atributo y valor -->
+                    <ion-item>
+                      <ion-label class="ion-text-center" color="primary"><b>Experiencia base:</b></ion-label>
+                      <ion-label class="ion-text-center">{{ pokemon.baseExperience }}</ion-label>
+                    </ion-item>
+                    <!-- Cuarto atributo y valor -->
+                    <ion-item>
+                      <ion-label class="ion-text-center" color="primary"><b>Habilidad oculta:</b></ion-label>
+                      <ion-label class="ion-text-center">{{ pokemon.hiddenAbility | titlecase }}</ion-label>
+                    </ion-item>
+                    <!-- Quinto atributo y valor -->
+                    <ion-item>
+                      <ion-label class="ion-text-center" color="primary"><b>Peso:</b></ion-label>
+                      <ion-label class="ion-text-center">{{ pokemon.weight / 10 }} kg</ion-label>
+                    </ion-item>
+                    <!-- Sexto atributo y valor -->
+                    <ion-item>
+                      <ion-label class="ion-text-center" color="primary"><b>Altura:</b></ion-label>
+                      <ion-label class="ion-text-center">{{ pokemon.height / 10 }} m</ion-label>
+                    </ion-item>
+                  </ion-list>
+                </ion-card>
+              </div>
+            </div>
+
+            <!-- Movimientos -->
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title class="ion-text-center"><b>Movimientos</b></ion-card-title>
+              </ion-card-header>
+            </ion-card>
+            <div class="two-column-container">
+              <!-- Columna izquierda -->
+              <div class="column">
+                <ion-card class="ion-no-padding ion-no-border">
+                  <ion-list [inset]="true">
+                    <ion-item *ngFor="let move of pokemon.moves.slice(0, pokemon.moves.length / 2)">
+                      <ion-label class="ion-text-center">
+                        {{ move | titlecase }}
+                      </ion-label>
+                    </ion-item>
+                  </ion-list>
+                </ion-card>
+              </div>
+              <!-- Columna derecha -->
+              <div class="column">
+                <ion-card class="ion-no-padding ion-no-border">
+                  <ion-list [inset]="true">
+                    <ion-item *ngFor="let move of pokemon.moves.slice(pokemon.moves.length / 2)">
+                      <ion-label class="ion-text-center">
+                        {{ move | titlecase }}
+                      </ion-label>
+                    </ion-item>
+                  </ion-list>
+                </ion-card>
+              </div>
+            </div>
+
+          </ion-content>
+        </div>
+      </ng-template>
+    </ion-modal>
+  </ng-container>
+  <!-- Fin del bucle -->
+
+  <!-- Botones de paginación -->
+  <div class="pagination">
+    <ion-button (click)="goToPreviousPage()" [disabled]="currentPage === 1" color="primary" expand="block">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-button>
+    <ion-button (click)="goToNextPage()" [disabled]="pokemonList.length < pageSize" expand="block" color="primary">
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+</ion-content>

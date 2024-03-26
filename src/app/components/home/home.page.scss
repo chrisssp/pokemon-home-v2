@@ -1,0 +1,52 @@
+.block {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.block-form {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ion-modal {
+  --height: auto;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination ion-button {
+  flex-grow: 1;
+  margin: 0 5px;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+}
+
+.two-column-container {
+  display: flex;
+}
+
+.column {
+  flex: 1;
+}
+
+.row-divider {
+  display: flex;
+  justify-content: space-between;
+}
+
+.col-divider {
+  flex: 1;
+}

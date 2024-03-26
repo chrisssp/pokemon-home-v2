@@ -1,0 +1,51 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <ion-img src="\assets\img\logo.png" class="ion-margin-vertical ion-padding"></ion-img>
+
+  <!-- <form [formGroup]="loginForm" (ngSubmit)="login()"> -->
+    <ion-item class="ion-margin-vertical transparent" lines="none">
+      <ion-input
+        type="email"
+        name="email"
+        required
+        label="Correo electrónico"
+        labelPlacement="floating"
+        pattern="(\d{5}[lL]\d{6})@utcv\.edu\.mx"
+        helperText="Ingresa con tu correo institucional"
+        errorText="Ingresa un correo válido"
+        [(ngModel)]="email"
+        #emailField="ngModel"
+        email
+      ></ion-input>
+    </ion-item>
+    
+    <ion-item class="ion-margin-vertical transparent" lines="none">
+      <ion-input
+        type="password"
+        name="password"
+        required
+        label="Contraseña"
+        labelPlacement="floating"
+        pattern=".{8,}"
+        helperText="Ingresa una contraseña de al menos 8 caracteres"
+        errorText="La contraseña debe tener al menos 8 caracteres"
+        [(ngModel)]="password"
+        #passwordField="ngModel"
+      ></ion-input>
+    </ion-item>
+
+    <!-- <ion-item class="ion-margin-vertical" lines="none" >
+    <ion-checkbox slot="start"></ion-checkbox>
+    <ion-text>
+      <p>Recuérdame</p>
+    </ion-text>
+  </ion-item> -->
+
+    <ion-button (click)="login()" expand="block" [disabled]="emailField.invalid || passwordField.invalid" class="ion-margin-horizontal">Iniciar sesión</ion-button>
+  <!-- </form> -->
+
+  <!-- <ion-text class="ion-text-center" button="true">
+    <p>¿Olvidaste tu contraseña?</p>
+  </ion-text> -->
+  
+</ion-content>
